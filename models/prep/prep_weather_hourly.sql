@@ -8,7 +8,7 @@ add_features AS (
 		, timestamp::TIME AS time                           -- only time (hours:minutes:seconds) as TIME data type
         , TO_CHAR(timestamp,'HH24:MI') as hour  -- time (hours:minutes) as TEXT data type
         , TO_CHAR(timestamp, 'FMmonth') AS month_name   -- month name as a TEXT
-        , TO_CHAR(timestamp, 'FMday' AS weekday        -- weekday name as TEXT        
+        , TO_CHAR(timestamp, 'FMday') AS weekday        -- weekday name as TEXT        
         , DATE_PART('day', timestamp) AS date_day
 		, DATE_PART('month', timestamp) AS date_month
 		, DATE_PART('year', timestamp) AS date_year
@@ -18,10 +18,10 @@ add_features AS (
 add_more_features AS (
     SELECT *
 		,(CASE 
-			WHEN time BETWEEN 22:00 AND 05:00 THEN 'night'
-            WHEN time BETWEEN 05:00 AND 08:00 THEN 'morning'
-			WHEN time BETWEEN 08:00 AND 18:00 THEN 'day'
-			WHEN time BETWEEN 18:00 AND 22:00 THEN 'evening'
+			WHEN time BETWEEN '22:00' AND '05:00' THEN 'night'
+            WHEN time BETWEEN '05:00' AND '08:00' THEN 'morning'
+			WHEN time BETWEEN '08:00' AND '18:00' THEN 'day'
+			WHEN time BETWEEN '18:00' AND '22:00' THEN 'evening'
 		END) AS day_part
     FROM add_features
 )
